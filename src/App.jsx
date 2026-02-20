@@ -1,34 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { prodotti } from './magazzino'
+import './App.css' // Teniamo il CSS per ora per non avere tutto disordinato
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <h1>🛠️ Ferramenta PWA</h1>
+      <p>Catalogo Prodotti</p>
+      
+      <div className="product-grid" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+        {prodotti.map((item) => (
+          <div key={item.id} className="card" style={{ border: '1px solid #ccc', padding: '15px', borderRadius: '10px', width: '250px' }}>
+            <img src={item.immagine} alt={item.nome} style={{ width: '100%', borderRadius: '5px' }} />
+            <h3>{item.nome}</h3>
+            <p>{item.descrizione}</p>
+            <p><strong>Prezzo: {item.prezzo}€</strong></p>
+            <p>Disponibili: {item.magazzino}</p>
+            <button>Aggiungi al carrello</button>
+          </div>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
