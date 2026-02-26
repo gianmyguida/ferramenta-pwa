@@ -7,7 +7,8 @@ export const prodotti = [
     magazzino: 1,
     categoria: "Attrezzi",
     immagine: "https://via.placeholder.com/150",
-    descrizione: "Martello in acciaio forgiato con manico antiscivolo."
+    descrizione: "Martello in acciaio forgiato con manico antiscivolo.",
+    brand: "Maurer"
   },
   {
     id: 2,
@@ -17,7 +18,8 @@ export const prodotti = [
     magazzino: 8,
     categoria: "Attrezzi",
     immagine: "https://via.placeholder.com/150",
-    descrizione: "Trapano 800W con velocità variabile e mandrino autoserrante."
+    descrizione: "Trapano 800W con velocità variabile e mandrino autoserrante.",
+    brand: "Maurer"
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ export const prodotti = [
     magazzino: 5,
     categoria: "Viteria",
     immagine: "https://via.placeholder.com/150",
-    descrizione: "Viti zincate testa svasata piana."
+    descrizione: "Viti zincate testa svasata piana.",
+    brand: "Tuttolegno"
   }
 ];

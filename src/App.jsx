@@ -1,26 +1,156 @@
-import { prodotti } from './magazzino'
-import './App.css' // Teniamo il CSS per ora per non avere tutto disordinato
+import { useState, useEffect } from 'react';
+import { db, auth } from './firebase'; 
+import { collection, getDocs, doc, setDoc, onSnapshot } from 'firebase/firestore'; // Funzioni per leggere i dati
+
+import Carrello from './components/Carrello';
+import Navbar from './components/Navbar'; 
+import ProductCard from './components/ProductCard'; 
+import ProductFocus from './components/ProductFocus';
+import './App.css';
 
 function App() {
+  const [prodotti, setProdotti] = useState([]); // Stato iniziale: lista vuota
+  const [loading, setLoading] = useState(true); // Stato per il caricamento
+  const [carrello, setCarrello] = useState([]); // Stato per gli elementi nel carrello
+  const [user, setUser] = useState(null); // Stato per l'utente loggato
+  const [paginaAttiva, setPaginaAttiva] = useState('home'); // Stato per cambiare pagina
+  const [prodottoFocus, setProdottoFocus] = useState(null); // Stato per def il focus sul prodotto
+
+  const apriFocus = (prodotto) => {
+    setProdottoFocus(prodotto);
+    setPaginaAttiva('focus'); 
+  };
+
+  //LOG UTENTE
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  //GET PRODOTTI DAL DATABASE
+  useEffect(() => {
+    const fetchProdotti = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "prodotti"));
+        const listaProdotti = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setProdotti(listaProdotti);
+        setLoading(false);
+      } catch (error) {
+        console.error("Errore nel recupero prodotti:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProdotti();
+  }, []);
+
+  //SINCRONIZZA CARRELLO UTENTE DAL DATABASE
+  useEffect(() => {
+    if (user) {
+      const docRef = doc(db, "carrelli", user.uid);
+      const unsubscribe = onSnapshot(docRef, (docSnap) => {
+        if (docSnap.exists()) {
+          setCarrello(docSnap.data().items || []);
+        } else {
+          setCarrello([]);
+        }
+      });
+      return () => unsubscribe();
+    } else {
+      setCarrello([]); 
+    }
+  }, [user]);
+
+  //FUNZIONE PER AGGIUNGERE PROD AL CARRELLO
+ const aggiungiAlCarrello = async (prodotto) => {
+    if (user === null) {
+      alert("Devi accedere per aggiungere prodotti!");
+      return;
+    }
+    let nuovoCarrello = [...carrello];
+
+    //Cerchiamo se il prodotto è già presente nel carrello
+    const indice = nuovoCarrello.findIndex(item => item.id === prodotto.id);
+    if (indice !== -1) {
+      // SE ESISTE: aumentiamo la sua proprietà 'quantita'
+      nuovoCarrello[indice].quantita = nuovoCarrello[indice].quantita + 1;
+    } else {
+      // SE NON ESISTE: aggiungiamo il prodotto nuovo e gli diamo quantita 1
+      const prodottoConQuantita = { ...prodotto, quantita: 1 };
+      nuovoCarrello.push(prodottoConQuantita);
+    }
+
+    // Aggiorno il database
+    try {
+      const carrelloRef = doc(db, "carrelli", user.uid);
+      await setDoc(carrelloRef, { items: nuovoCarrello });
+    } catch (error) {
+      console.error("Errore nel salvataggio:", error);
+    }
+  };
+
+  //FUNZIONE PER RIMUOVE PROD DAL CARRELLO
+  const rimuoviDalCarrello = async (idProdotto) => {
+    let nuovoCarrello = [...carrello];
+    const indice = nuovoCarrello.findIndex(item => item.id === idProdotto);
+
+    if (indice !== -1) {
+      if (nuovoCarrello[indice].quantita > 1) {
+        nuovoCarrello[indice].quantita = nuovoCarrello[indice].quantita - 1;
+      } else {
+        nuovoCarrello.splice(indice, 1);
+      }
+    }
+
+    // Aggiorno il database
+    try {
+      const carrelloRef = doc(db, "carrelli", user.uid);
+      await setDoc(carrelloRef, { items: nuovoCarrello });
+    } catch (error) {
+      console.error("Errore nel salvataggio:", error);
+    }
+  };
+
+
   return (
-    <div className="container">
-      <h1>🛠️ Ferramenta PWA</h1>
-      <p>Catalogo Prodotti</p>
+    <div>
+      <Navbar 
+        conteggioCarrello={carrello.length} 
+        setPagina={setPaginaAttiva} 
+      /> 
       
-      <div className="product-grid" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {prodotti.map((item) => (
-          <div key={item.id} className="card" style={{ border: '1px solid #ccc', padding: '15px', borderRadius: '10px', width: '250px' }}>
-            <img src={item.immagine} alt={item.nome} style={{ width: '100%', borderRadius: '5px' }} />
-            <h3>{item.nome}</h3>
-            <p>{item.descrizione}</p>
-            <p><strong>Prezzo: {item.prezzo}€</strong></p>
-            <p>Disponibili: {item.magazzino}</p>
-            <button>Aggiungi al carrello</button>
-          </div>
-        ))}
-      </div>
+      <main className="container">
+        {paginaAttiva === 'home' && (
+          <>
+            <h1 style={{ textAlign: 'center' }}>Catalogo Ferramenta</h1>
+            <div className="product-grid">
+              {prodotti.map((item) => (
+                <ProductCard 
+                  key= {item.id} 
+                  prodotto= {item} 
+                  onAggiungi= {aggiungiAlCarrello}
+                  onRimuovi= {rimuoviDalCarrello}
+                  nelCarrello= {carrello.find(c => c.id === item.id)}
+                  onFocus= {apriFocus}
+                />
+              ))}
+            </div>
+          </>
+        )}
+        {paginaAttiva === 'carrello' && (
+          <Carrello carrello={carrello} onAggiungi={aggiungiAlCarrello} onRimuovi={rimuoviDalCarrello} tornaAllaHome={() => setPaginaAttiva('home')} />
+        )}
+        {paginaAttiva === 'focus' && (
+          <ProductFocus prodotto={prodottoFocus} tornaIndietro={() => setPaginaAttiva('home')} onAggiungi={aggiungiAlCarrello} />
+        )}
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
