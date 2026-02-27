@@ -6,6 +6,7 @@ import Carrello from './components/Carrello';
 import Navbar from './components/Navbar'; 
 import ProductCard from './components/ProductCard'; 
 import ProductFocus from './components/ProductFocus';
+import Catalogo from './components/catalogo';
 import './App.css';
 
 function App() {
@@ -126,21 +127,7 @@ function App() {
       
       <main className="container">
         {paginaAttiva === 'home' && (
-          <>
-            <h1 style={{ textAlign: 'center' }}>Catalogo Ferramenta</h1>
-            <div className="product-grid">
-              {prodotti.map((item) => (
-                <ProductCard 
-                  key= {item.id} 
-                  prodotto= {item} 
-                  onAggiungi= {aggiungiAlCarrello}
-                  onRimuovi= {rimuoviDalCarrello}
-                  nelCarrello= {carrello.find(c => c.id === item.id)}
-                  onFocus= {apriFocus}
-                />
-              ))}
-            </div>
-          </>
+          <Catalogo prodotti={prodotti} onAggiungi={aggiungiAlCarrello} onRimuovi={rimuoviDalCarrello} carrello={carrello} onFocus={apriFocus} />
         )}
         {paginaAttiva === 'carrello' && (
           <Carrello carrello={carrello} onAggiungi={aggiungiAlCarrello} onRimuovi={rimuoviDalCarrello} tornaAllaHome={() => setPaginaAttiva('home')} />
