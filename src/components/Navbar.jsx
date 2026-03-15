@@ -29,6 +29,7 @@ const Navbar = ({ conteggioCarrello, setPagina }) => {
       justifyContent: 'space-between', 
       alignItems: 'center', 
       padding: '0 20px', 
+      //backgroundImage: 'url(https://thumbs.dreamstime.com/z/white-brick-wall-background-use-32709315.jpg)',
       backgroundColor: '#ffffff', 
       color: '#007bff', 
       height: '60px',

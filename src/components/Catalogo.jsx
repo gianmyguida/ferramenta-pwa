@@ -3,12 +3,19 @@ import React, { useState } from 'react';
 
 function Catalogo({ prodotti, onAggiungi, onRimuovi, carrello, onFocus }) {
   const [categoriaAttiva, setCategoriaAttiva] = useState('Tutti');
+  const [ricerca, setRicerca] = useState('');
   const categorie = ['Tutti', ...new Set(prodotti.map(p => p.categoria))];
 
-  // 2. Filtro i prodotti in base alla scelta
-  const prodottiDaMostrare = categoriaAttiva === 'Tutti'
-    ? prodotti
-    : prodotti.filter(p => p.categoria === categoriaAttiva);
+  function aggiornaRicerca(evento) {
+    setRicerca(evento.target.value);
+  }
+
+  //Filtraggio dei prodotti in base alla scelta
+  const prodottiDaMostrare = prodotti.filter(function(p) {
+    const matchCategoria = categoriaAttiva === 'Tutti' || p.categoria === categoriaAttiva;
+    const matchNome = p.nome.toLowerCase().includes(ricerca.toLowerCase());
+    return matchCategoria && matchNome;
+  });
 
   return (
     <div className="catalogo-layout">
@@ -30,6 +37,14 @@ function Catalogo({ prodotti, onAggiungi, onRimuovi, carrello, onFocus }) {
 
       {/* GRIGLIA PRODOTTI DESTRA */}
       <section className="main-content">
+        <div className="search-bar">
+          <input 
+            type="text" 
+            placeholder="Cerca un prodotto..." 
+            value={ricerca} // Collega l'input allo stato 'ricerca'
+            onChange={aggiornaRicerca} // Usa la tua funzione classica per aggiornare
+          />
+        </div>
         <h1 className="catalogo-titolo">{categoriaAttiva}</h1>
         <div className="product-grid">
           {prodottiDaMostrare.map((item) => (

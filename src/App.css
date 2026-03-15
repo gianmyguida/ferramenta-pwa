@@ -1,9 +1,10 @@
 /* Stile globale del corpo pagina */
 body {
-  background-color: #1976d2; 
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #212121; 
+  background-image: url('https://i.pinimg.com/736x/a4/b5/33/a4b53381cbe2a07393eaa9cfee85f20f.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-color: #0d47a1; 
 }
 
 .container {
@@ -266,7 +267,9 @@ h2 {
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   position: sticky; 
-  top: 100px;
+  top: 0;
+  margin: 0;
+  min-height: 80vh;
 }
 
 .sidebar ul {
@@ -297,4 +300,33 @@ h2 {
 
 .main-content {
   flex: 1;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.search-bar input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.custom-alert {
+  position: fixed;
+  top: 80px; 
+  right: 20px;
+  background-color: #333;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 2000; 
+  animation: fadeIn 0.5s ease; 
 }

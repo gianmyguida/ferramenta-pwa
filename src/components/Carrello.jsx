@@ -1,6 +1,11 @@
 import ProductCard from './ProductCard';
 
-const Carrello = ({ carrello, onAggiungi, onRimuovi, tornaAllaHome }) => {
+const Carrello = ({ carrello, onAggiungi, onRimuovi, onFocus, tornaAllaHome, onAcquista }) => {
+  
+  async function gestisciClickAcquisto() {
+    if (carrello.length === 0) return;
+    await onAcquista(); 
+  }
 
   let totale = 0;
   carrello.forEach(item => {
@@ -27,7 +32,8 @@ const Carrello = ({ carrello, onAggiungi, onRimuovi, tornaAllaHome }) => {
                 prodotto={item} 
                 onAggiungi={onAggiungi}
                 onRimuovi={onRimuovi}
-                nelCarrello={item} 
+                nelCarrello={item}
+                onFocus= {onFocus} 
               />
             ))}
           </div>
@@ -45,7 +51,8 @@ const Carrello = ({ carrello, onAggiungi, onRimuovi, tornaAllaHome }) => {
               padding: '10px 20px', 
               fontSize: '1.1rem',
               borderRadius: '5px'
-            }}>
+            }}
+            onClick={gestisciClickAcquisto}>
               Procedi al Pagamento
             </button>
           </div>

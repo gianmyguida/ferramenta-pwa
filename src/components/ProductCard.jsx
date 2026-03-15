@@ -1,6 +1,6 @@
 const ProductCard = ({ prodotto, onAggiungi, onRimuovi, nelCarrello, onFocus }) => {
   function gestisciClickCard() {
-    //console.log("Cliccata la card intera!"); // Debug: guarda la console (F12)
+    console.log("Cliccata la card intera!"); // Debug: guarda la console (F12)
     onFocus(prodotto);
   }
   function gestisciAggiungi(e) {
