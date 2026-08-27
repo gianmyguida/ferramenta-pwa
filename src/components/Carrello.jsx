@@ -1,10 +1,10 @@
 import ProductCard from './ProductCard';
 
 const Carrello = ({ carrello, onAggiungi, onRimuovi, onFocus, tornaAllaHome, onAcquista }) => {
-  
+
   async function gestisciClickAcquisto() {
     if (carrello.length === 0) return;
-    await onAcquista(); 
+    await onAcquista();
   }
 
   let totale = 0;
@@ -14,45 +14,33 @@ const Carrello = ({ carrello, onAggiungi, onRimuovi, onFocus, tornaAllaHome, onA
 
   return (
     <div className="carrello-page">
-      <div style={{ textAlign: 'center', margin: '20px 0' }}>
-        <button onClick={tornaAllaHome} style={{ cursor: 'pointer', padding: '10px' }}>
+      <div className="carrello-header">
+        <button onClick={tornaAllaHome}>
           ← Torna al Catalogo
         </button>
         <h1>Il Tuo Carrello</h1>
       </div>
 
       {carrello.length === 0 ? (
-        <p style={{ textAlign: 'center' }}>Il tuo carrello è deserto... 🏜️</p>
+        <p className="empty-cart-text">Il tuo carrello è deserto...</p>
       ) : (
         <>
           <div className="product-grid">
             {carrello.map((item) => (
-              <ProductCard 
-                key={item.id} 
-                prodotto={item} 
+              <ProductCard
+                key={item.id}
+                prodotto={item}
                 onAggiungi={onAggiungi}
                 onRimuovi={onRimuovi}
                 nelCarrello={item}
-                onFocus= {onFocus} 
+                onFocus={onFocus}
               />
             ))}
           </div>
 
-          <div style={{ 
-            marginTop: '30px', 
-            padding: '20px', 
-            borderTop: '2px solid #ffffff', 
-            textAlign: 'right' 
-          }}>
-            <h2 style = {{color: '#ffffff'}}>Totale: {totale.toFixed(2)}€</h2>
-            <button style={{ 
-              backgroundColor: '#ffffff', 
-              color: '#007bffff', 
-              padding: '10px 20px', 
-              fontSize: '1.1rem',
-              borderRadius: '5px'
-            }}
-            onClick={gestisciClickAcquisto}>
+          <div className="carrello-summary">
+            <h2>Totale: {totale.toFixed(2)}€</h2>
+            <button className="btn-checkout" onClick={gestisciClickAcquisto}>
               Procedi al Pagamento
             </button>
           </div>

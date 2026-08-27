@@ -1,13 +1,16 @@
-function ProductFocus({ prodotto, tornaIndietro, onAggiungi }) {
-  
+function ProductFocus({ prodotto, carrello, tornaIndietro, onAggiungi }) {
+
+  //cerco se il prodotto è già presente nel carrello, per mostrarne la quantità
+  const nelCarrello = carrello.find(item => item.id === prodotto.id);
+  const quantita = nelCarrello ? nelCarrello.quantita : 0;
+
   function gestisciAggiungi() {
-    onAggiungi(prodotto); //da fixare
-    console.log("aggiungo prodotto");
+    onAggiungi(prodotto);
   }
 
   return (
     <div className="focus-container">
-      <button className="btn-back" onClick={tornaIndietro}>
+      <button /*</div>className="btn-back"*/ onClick={tornaIndietro}>
         ← Torna al catalogo
       </button>
 
@@ -31,12 +34,12 @@ function ProductFocus({ prodotto, tornaIndietro, onAggiungi }) {
           </div>
 
           <button className="btn-focus-add" onClick={gestisciAggiungi}>
-            Aggiungi al Carrello
+            Aggiungi al Carrello{quantita > 0 ? ` (${quantita})` : ''}
           </button>
 
           <div className="focus-extra-info">
-            <p>🚚 Spedizione veloce</p>
-            <p>🛡️ Pagamento sicuro</p>
+            <p>° Spedizione veloce</p>
+            <p>° Pagamento sicuro</p>
           </div>
         </div>
       </div>

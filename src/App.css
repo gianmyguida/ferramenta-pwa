@@ -1,10 +1,26 @@
+/* ===== PALETTE COLORI DEL SITO =====
+   tutti i colori dell'app passano da qui: per cambiare tema basta
+   modificare questi valori, non serve toccare i singoli componenti */
+:root {
+  --color-primary: #1976d2;
+  /*--color-primary-dark: #1976d2; /*0d47a1*/
+  --color-danger: #b71c1c;
+  --color-text: #333333;
+  --color-text-light: #424242;
+  --color-text-muted: #666666;
+  --color-bg-light: #f0f4f8;
+  --color-white: #ffffff;
+  --radius-card: 12px;
+  --shadow-card: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 /* Stile globale del corpo pagina */
 body {
   background-image: url('https://i.pinimg.com/736x/a4/b5/33/a4b53381cbe2a07393eaa9cfee85f20f.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
-  background-color: #0d47a1; 
+  background-color: var(--color-primary-dark);
 }
 
 .container {
@@ -15,12 +31,12 @@ body {
 
 /* Titoli principali */
 h1 {
-  color: #ffffff; 
+  color: var(--color-white);
   margin-bottom: 20px;
 }
 
 h2 {
-  color: #1976d2; 
+  color: var(--color-primary);
   margin-bottom: 20px;
 }
 
@@ -33,13 +49,14 @@ h2 {
 
 /* Stile delle card (i div bianchi) */
 .card {
-  background-color: #ffffff; 
-  border-radius: 12px;
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
   padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
   transition: transform 0.2s ease;
-  border: none; 
+  border: none;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -48,12 +65,12 @@ h2 {
 }
 
 .card h3 {
-  color: #1976d2; /* Blu per i nomi dei prodotti */
+  color: var(--color-primary);
   margin: 15px 0 10px 0;
 }
 
 .card p {
-  color: #424242;
+  color: var(--color-text-light);
 }
 
 /* Stile dei bottoni */
@@ -66,9 +83,8 @@ h2 {
   transition: background-color 0.2s;
 }
 
-/* Bottone Aggiungi (+) verde */
 .btn-aggiungi {
-  background-color: #1976d2;
+  background-color: var(--color-primary);
   color: white;
 }
 
@@ -76,19 +92,18 @@ h2 {
   background-color: #1b5e20;
 }
 
-/* Bottone Rimuovi (-) rosso */
 .btn-rimuovi {
-  background-color: #1976d2;
+  background-color: var(--color-primary);
   color: white;
 }
 
 .btn-rimuovi:hover {
-  background-color: #b71c1c;
+  background-color: var(--color-danger);
 }
 
 /* Stile per la navigazione del carrello */
 .carrello-page button {
-  background-color: #1976d2;
+  background-color: var(--color-primary);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -97,125 +112,89 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* Contenitore principale che centra tutto nella pagina */
-.focus-container {
+.carrello-header {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.carrello-summary {
+  margin-top: 30px;
   padding: 20px;
-  animation: fadeIn 0.3s ease-in; 
+  border-top: 2px solid var(--color-white);
+  text-align: right;
 }
 
-/* La card bianca che contiene le due colonne */
-.focus-card {
-  display: flex; 
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  margin-top: 20px;
-  min-height: 400px;
+.carrello-summary h2 {
+  color: var(--color-white);
 }
 
-/* Colonna sinistra (Immagine) */
-.focus-left {
-  flex: 1; 
-  background-color: #f9f9f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  border-right: 1px solid #eee;
-}
-
-.focus-img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-/* Colonna destra (Testi) */
-.focus-right {
-  flex: 1; 
-  padding: 40px;
-  display: flex;
-  flex-direction: column; 
-  justify-content: center;
-}
-
-.focus-title {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.focus-price {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #007bff; 
-  margin-bottom: 20px;
-}
-
-.btn-focus-add {
-  background-color: #28a745; 
-  color: white;
+/* selettore annidato per battere in specificità la regola generica ".carrello-page button" */
+.carrello-summary .btn-checkout {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 5px;
   border: none;
-  padding: 15px 30px;
-  border-radius: 8px;
-  font-size: 1.2rem;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.2s;
 }
 
-.btn-focus-add:hover {
-  background-color: #218838;
+.empty-cart-text {
+  text-align: center;
+  color: var(--color-white);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* Contenitore principale che centra tutto nella pagina */
 .focus-container {
   max-width: 1100px;
   margin: 30px auto;
   padding: 0 20px;
+  animation: fadeIn 0.3s ease-in;
 }
 
-/* Trasforma il div in un contenitore a colonne */
+.focus-container button{
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
 .focus-card {
-  display: flex; 
+  display: flex;
   background-color: white;
-  border-radius: 20px; 
-  box-shadow: 0 10px 40px rgba(0,0,0,0.08); 
-  overflow: hidden; 
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
-/* La colonna immagine*/
 .focus-left {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f0f2f5;
+  background-color: var(--color-bg-light);
   padding: 20px;
 }
 
 .focus-img {
-  max-width: 100%; 
-  max-height: 450px; 
-  object-fit: contain; 
+  max-width: 100%;
+  max-height: 450px;
+  object-fit: contain;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Effetto Zoom al passaggio del mouse */
 .focus-img:hover {
   transform: scale(1.05);
 }
 
-/* La colonna dei testi */
 .focus-right {
   flex: 1;
-  padding: 60px; 
+  padding: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -229,14 +208,13 @@ h2 {
 
 .focus-price {
   font-size: 2.2rem;
-  color: #007bff; 
+  color: var(--color-primary);
   font-weight: 800;
   margin-bottom: 25px;
 }
 
-
 .btn-focus-add {
-  background-color: #007bff;
+  background-color: var(--color-primary);
   color: white;
   border: none;
   padding: 18px;
@@ -248,8 +226,13 @@ h2 {
 }
 
 .btn-focus-add:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); 
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .catalogo-layout {
@@ -264,9 +247,9 @@ h2 {
   flex: 0 0 220px;
   background: white;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  position: sticky; 
+  border-radius: var(--radius-card);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
   top: 0;
   margin: 0;
   min-height: 80vh;
@@ -288,12 +271,12 @@ h2 {
 }
 
 .sidebar li:hover {
-  background: #f0f4f8;
-  color: #0d47a1;
+  background: var(--color-bg-light);
+  color: var(--color-primary);
 }
 
 .sidebar li.active {
-  background: #0d47a1;
+  background: var(--color-primary);
   color: white;
   font-weight: bold;
 }
@@ -320,13 +303,361 @@ h2 {
 
 .custom-alert {
   position: fixed;
-  top: 80px; 
+  top: 80px;
   right: 20px;
   background-color: #333;
   color: white;
   padding: 15px 25px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  z-index: 2000; 
-  animation: fadeIn 0.5s ease; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  animation: fadeIn 0.5s ease;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  height: 60px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.navbar-logo-img {
+  height: 40px;
+  width: auto;
+  border-radius: 4px;
+}
+
+.navbar-brand {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.navbar-btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.navbar-cart {
+  position: relative;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.navbar-cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: #ff4757;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-user-name {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.navbar-btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ===== PLACEHOLDER OFFLINE ===== */
+.offline-page {
+  font-family: system-ui, -apple-system, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #f5f5f5;
+  color: #1e293b;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.offline-card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 2.5rem 2rem;
+  max-width: 380px;
+  box-shadow: var(--shadow-card);
+  box-sizing: border-box;
+}
+
+.offline-img {
+  width: 110px;
+  margin-bottom: 1.25rem;
+}
+
+.offline-emoji {
+  display: none;
+  font-size: 3.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.offline-title {
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+  color: var(--color-primary-dark);
+}
+
+.offline-text {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin: 0 0 1.5rem;
+  line-height: 1.4;
+}
+
+.btn-offline-retry {
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-primary-dark);
+  color: white;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* ===== AREA VENDITORE ===== */
+.admin-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.admin-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  flex: 0 1 420px;
+}
+
+.admin-card-full {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 380px;
+}
+
+.admin-input {
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-white);
+  outline: none;
+}
+
+.btn-admin-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.btn-admin-secondary {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.btn-admin-danger {
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table thead tr {
+  background-color: var(--color-bg-light);
+  text-align: left;
+}
+
+.admin-table th {
+  padding: 10px 8px;
+  color: var(--color-primary-dark);
+  border-bottom: 2px solid #ddd;
+}
+
+.admin-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.admin-table td {
+  padding: 10px 8px;
+  color: var(--color-text-light);
+}
+
+.admin-table td.totale {
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.badge-admin {
+  background-color: #e3f2fd;
+  color: var(--color-primary-dark);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.badge-cliente {
+  background-color: #f0f0f0;
+  color: var(--color-text-muted);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.badge-you {
+  color: #999;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* ===== PRODUCT CARD ===== */
+.card-img-box {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.card-img-placeholder {
+  font-size: 3rem;
+}
+
+.card-description {
+  color: #444;
+  font-size: 0.85rem;
+  height: 40px;
+  overflow: hidden;
+}
+
+.card-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-primary-dark);
+  margin: 10px 0;
+}
+
+.card-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* selettore rinforzato per battere in specificità la regola generica ".card button" */
+.card .card-controls button {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.card-qty {
+  min-width: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #999;
+}
+
+.card-qty.active {
+  color: #2e7d32;
+}
+
+.card-in-cart-badge {
+  font-size: 0.75rem;
+  color: #2e7d32;
+  margin-top: 5px;
+  font-weight: 500;
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'; 
 import { auth, googleProvider, signInWithPopup, signOut } from '../firebase';
 
-const Navbar = ({ conteggioCarrello, setPagina }) => {
+const Navbar = ({ conteggioCarrello, setPagina, ruolo }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -24,89 +24,43 @@ const Navbar = ({ conteggioCarrello, setPagina }) => {
   };
 
   return (
-    <nav style={{ 
-      display: 'flex', 
-      justifyContent: 'space-between', 
-      alignItems: 'center', 
-      padding: '0 20px', 
-      //backgroundImage: 'url(https://thumbs.dreamstime.com/z/white-brick-wall-background-use-32709315.jpg)',
-      backgroundColor: '#ffffff', 
-      color: '#007bff', 
-      height: '60px',
-      boxShadow: '0 2px 10px rgba(0,0,0,0.1)', 
-      position: 'sticky', 
-      top: 0,
-      zIndex: 1000
-    }}>
-      {/*LOGO*/}
-      <div 
-        onClick={() => setPagina('home')} 
-        style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
-      >
-        <span style={{ fontSize: '1.5rem' }}>🛠️</span>
-        <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#007bff' }}>
-          GUIDA AL FAI DA TE
-        </span>
+    <nav className="navbar">
+      {/*logo*/}
+      <div onClick={() => setPagina('home')} className="navbar-logo">
+        <img src="/logo.jpg" alt="Logo" className="navbar-logo-img" />
+        <span className="navbar-brand">GUIDA AL FAI DA TE</span>
       </div>
-      
-      <div style={{ display: 'flex', alignItems: 'center', gap: '25px' }}>
-        
-        {/* ICONA CARRELLO*/}
-        <div 
-          onClick={() => setPagina('carrello')} 
-          style={{ position: 'relative', cursor: 'pointer', fontSize: '1.4rem' }}
-        >
+
+      <div className="navbar-actions">
+
+        {/*pulsanti visibili solo per l'admin*/}
+        {ruolo === 'admin' && (
+          <>
+            <button onClick={() => setPagina('venditore')} className="navbar-btn-outline">
+              🧰 Area Venditore
+            </button>
+          </>
+        )}
+
+        {/*icona carrello*/}
+        <div onClick={() => setPagina('carrello')} className="navbar-cart">
           🛒
           {conteggioCarrello > 0 && (
-            <span style={{
-              position: 'absolute',
-              top: '-8px',
-              right: '-10px',
-              backgroundColor: '#ff4757',
-              color: 'white',
-              borderRadius: '50%',
-              padding: '2px 6px',
-              fontSize: '0.7rem',
-              fontWeight: 'bold'
-            }}>
-              {conteggioCarrello}
-            </span>
+            <span className="navbar-cart-badge">{conteggioCarrello}</span>
           )}
         </div>
 
         {user ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            <span style={{ color: '#333', fontWeight: '500' }}>
+          <div className="navbar-user">
+            <span className="navbar-user-name">
               Ciao, {user.displayName ? user.displayName.split(' ')[0] : 'Utente'}
             </span>
-            <button 
-              onClick={handleLogout}
-              style={{ 
-                backgroundColor: 'transparent', 
-                color: '#007bff', 
-                border: '1px solid #007bff', 
-                padding: '8px 15px', 
-                borderRadius: '5px',
-                cursor: 'pointer',
-                fontWeight: 'bold'
-              }}
-            >
+            <button onClick={handleLogout} className="navbar-btn-outline">
               Esci
             </button>
           </div>
         ) : (
-          <button 
-            onClick={handleLogin}
-            style={{ 
-              backgroundColor: '#007bff', 
-              color: 'white', 
-              border: 'none', 
-              padding: '10px 20px', 
-              borderRadius: '5px',
-              cursor: 'pointer',
-              fontWeight: 'bold'
-            }}
-          >
+          <button onClick={handleLogin} className="navbar-btn-primary">
             Accedi
           </button>
         )}

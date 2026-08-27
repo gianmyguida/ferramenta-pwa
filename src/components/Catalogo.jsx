@@ -1,9 +1,10 @@
-import ProductCard from './ProductCard';
 import React, { useState } from 'react';
+import ProductCard from './ProductCard';
 
 function Catalogo({ prodotti, onAggiungi, onRimuovi, carrello, onFocus }) {
   const [categoriaAttiva, setCategoriaAttiva] = useState('Tutti');
   const [ricerca, setRicerca] = useState('');
+
   const categorie = ['Tutti', ...new Set(prodotti.map(p => p.categoria))];
 
   function aggiornaRicerca(evento) {
@@ -41,8 +42,8 @@ function Catalogo({ prodotti, onAggiungi, onRimuovi, carrello, onFocus }) {
           <input 
             type="text" 
             placeholder="Cerca un prodotto..." 
-            value={ricerca} // Collega l'input allo stato 'ricerca'
-            onChange={aggiornaRicerca} // Usa la tua funzione classica per aggiornare
+            value={ricerca} 
+            onChange={aggiornaRicerca} 
           />
         </div>
         <h1 className="catalogo-titolo">{categoriaAttiva}</h1>

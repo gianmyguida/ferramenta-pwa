@@ -13,6 +13,8 @@ const firebaseConfig = {
   measurementId: "G-6CVNPT6BM1"
 };
 
+//INIT DEI SERVIZI
+//lo si fa qui in modo univoco in modo da evitare collegamenti multipli agli stessi serzizi
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
