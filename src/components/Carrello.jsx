@@ -21,9 +21,7 @@ const Carrello = ({ carrello, onAggiungi, onRimuovi, onFocus, tornaAllaHome, onA
         <h1>Il Tuo Carrello</h1>
       </div>
 
-      {carrello.length === 0 ? (
-        <p className="empty-cart-text">Il tuo carrello è deserto...</p>
-      ) : (
+      {carrello.length === 0 ? (<p className="empty-cart-text">Il tuo carrello è deserto...</p>) : (
         <>
           <div className="product-grid">
             {carrello.map((item) => (

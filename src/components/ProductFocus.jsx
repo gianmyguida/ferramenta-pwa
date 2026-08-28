@@ -10,7 +10,7 @@ function ProductFocus({ prodotto, carrello, tornaIndietro, onAggiungi }) {
 
   return (
     <div className="focus-container">
-      <button /*</div>className="btn-back"*/ onClick={tornaIndietro}>
+      <button onClick={tornaIndietro}>
         ← Torna al catalogo
       </button>
 

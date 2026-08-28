@@ -32,8 +32,7 @@ const Navbar = ({ conteggioCarrello, setPagina, ruolo }) => {
       </div>
 
       <div className="navbar-actions">
-
-        {/*pulsanti visibili solo per l'admin*/}
+        {/*pulsante visibile solo per l'admin*/}
         {ruolo === 'admin' && (
           <>
             <button onClick={() => setPagina('venditore')} className="navbar-btn-outline">

@@ -1,16 +1,55 @@
-# React + Vite
+# Ferramenta PWA — Guida al Fai da Te
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+E-commerce PWA per la vendita di articoli da ferramenta, sviluppato con React (frontend) e Node.js/Express (backend), Firebase (autenticazione + database) e Stripe (pagamenti).
 
-Currently, two official plugins are available:
+## Funzionalità
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend**: React + Vite, PWA con Service Worker custom (offline fallback, notifiche push)
+- **Backend**: Node.js + Express (gestione sessioni di pagamento Stripe e invio notifiche push)
+- **Database**: Firebase Firestore
+- **Autenticazione**: Firebase Auth (login Google)
+- **Pagamenti**: Stripe Checkout
+- **Notifiche**: Web Push (VAPID)
 
-## React Compiler
+Il progetto è organizzato come **monorepo**: frontend nella root, backend nella sottocartella `src/backend/`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Configurazione
 
-## Expanding the ESLint configuration
+1. Clonare il repository
+2. Incollare il file `.env` allegato nella mail, nella **root** del progetto (stessa cartella di `package.json`).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Avvio del progetto
+
+**Prima esecuzione** (installazione dipendenze del progetto; creazione build; avvio di frontend+backend):
+
+```bash
+npm run start:full
+```
+
+**Esecuzioni successive** (avvio rapido):
+
+```bash
+npm start
+```
+
+L'app sarà disponibile su `http://localhost:4173`, con il backend in ascolto sulla porta `4242`.
+
+## Credenziali di test
+
+Il login avviene tramite **Google OAuth**: è sufficiente accedere con un qualsiasi account Google per usare l'app come cliente (catalogo, carrello, acquisto).
+
+Per testare l'**Area Venditore** (gestione prodotti, storico vendite, gestione ruoli utente) è necessario il ruolo `admin`, assegnato manualmente su Firestore(o nel pannello admin). Per testare questa funzione, vi ho allegato nella mail, una mail provvisoria con un account admin.
+
+## Funzionalità principali
+
+- Catalogo prodotti con ricerca e filtro per categoria
+- Carrello persistente per utente (Firestore)
+- Pagamento tramite API Stripe Checkout
+- Autenticazione Google
+- PWA installabile, con pagina di fallback offline
+- Notifiche push sugli aggiornamenti dell'ordine (post acquisto)
+- Area venditore: aggiunta prodotti, storico vendite, gestione ruoli utenti
+
+## Note
+
+- Il pagamento è configurato in modalità test di Stripe. Per i test si può usare il numero carta `4242 4242 4242 4242`, data di scadenza futura e CVC a piacere.
