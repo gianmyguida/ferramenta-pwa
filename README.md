@@ -38,7 +38,7 @@ L'app sarà disponibile su `http://localhost:4173`, con il backend in ascolto su
 
 Il login avviene tramite **Google OAuth**: è sufficiente accedere con un qualsiasi account Google per usare l'app come cliente (catalogo, carrello, acquisto).
 
-Per testare l'**Area Venditore** (gestione prodotti, storico vendite, gestione ruoli utente) è necessario il ruolo `admin`, assegnato manualmente su Firestore(o nel pannello admin). Per testare questa funzione, vi ho allegato nella mail, una mail provvisoria con un account admin.
+Per testare l'**Area Venditore** (gestione prodotti, storico vendite, gestione ruoli utente) è necessario il ruolo `admin`, assegnato manualmente su Firestore(o nel pannello admin). Per testare questa funzione, ho provveduto a impostare la vostra mail(quella alla quale ho inviato i file .env) come admin. Per altre mail, il ruolo di default sarà client e ,ovviamente, non si avranno a disposizione le funzionalità admin.
 
 ## Funzionalità principali
 

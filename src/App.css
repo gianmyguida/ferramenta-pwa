@@ -1,6 +1,5 @@
 /* ===== PALETTE COLORI DEL SITO =====
-   tutti i colori dell'app passano da qui: per cambiare tema basta
-   modificare questi valori, non serve toccare i singoli componenti */
+   tutti i colori dell'app vengono configurati qui*/
 :root {
   --color-primary: #1976d2;
   /*--color-primary-dark: #1976d2; /*0d47a1*/
@@ -633,7 +632,6 @@ h2 {
   border-radius: 8px;
 }
 
-/* selettore rinforzato per battere in specificità la regola generica ".card button" */
 .card .card-controls button {
   width: 35px;
   height: 35px;
